@@ -3,7 +3,8 @@
 # Importing libs
 from agno.agent import Agent
 from agno.tools.tavily import TavilyTools
-from agno.models.groq import Groq
+from agno.models.openai import OpenAIChat
+from agno.db.sqlite import SqliteDb
 
 # Setting up dot env
 from dotenv import load_dotenv
@@ -24,13 +25,25 @@ def celsius_to_fh(temp_celsius: float):
 
 # Bultinding agent
 agent = Agent(
-    model=Groq(id="llama-3.3-70b-versatile"),
+    name="Agente do tempo",
+    model=OpenAIChat(id="gpt-5-mini"),
+    db=SqliteDb(db_file="tmp/agent.db"),
     tools=[
         TavilyTools(),
         celsius_to_fh,
         ],
-    debug_mode=True
+    add_history_to_context=True,
+    num_history_runs=3,
+    markdown=True
 )
 
-# Using agent
-agent.print_response("Use suas ferraentas para verificar a temperatura em São Luis do Maranhão, e me diga a temperatura na forma de tabela em graus celsius e em fahrenheit bem formato")
+sid = "demo"
+
+# Sync chat in terminal
+if __name__ == "__main__":
+    agent.cli_app(
+        strem=True,
+        markdown=True,
+        exit_on=["/exit","/quit","/q"],
+        session_id=sid
+    )

@@ -4,7 +4,6 @@
 from agno.agent import Agent
 # from agno.tools.tavily import TavilyTools
 from agno.tools.yfinance import YFinanceTools
-# from agno.models.groq import Groq
 from agno.models.openai import OpenAIChat
 
 # Setting up dot env
