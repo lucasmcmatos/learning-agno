@@ -1,4 +1,4 @@
-# Agent that uses custom tools
+# Agent that uses custom tools and memory.
 
 # Importing libs
 from agno.agent import Agent
@@ -42,7 +42,7 @@ sid = "demo"
 # Sync chat in terminal
 if __name__ == "__main__":
     agent.cli_app(
-        strem=True,
+        stream=False,
         markdown=True,
         exit_on=["/exit","/quit","/q"],
         session_id=sid
